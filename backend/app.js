@@ -1,10 +1,11 @@
 import express from 'express'
+import 'express-async-errors'
 import cors from 'cors'
-import connectDB from './db/connection.js'
+import connectDb from './db/connection.js'
 import blogsRouter from './controllers/blogs.js'
 import middleware from './utils/middleware.js'
 
-connectDB()
+connectDb()
 
 const app = express()
 app.use(cors())

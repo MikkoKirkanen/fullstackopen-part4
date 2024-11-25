@@ -1,9 +1,15 @@
+const isNotTest = process.env.NODE_ENV !== 'test'
+
 const info = (...params) => {
-  console.log(...params)
+  if (isNotTest) {
+    console.log(...params)
+  }
 }
 
 const error = (...params) => {
-  console.error(...params)
+  if (isNotTest) {
+    console.error(...params)
+  }
 }
 
 export default { info, error }

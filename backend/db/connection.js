@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 import config from '../utils/config.js'
 import logger from '../utils/logger.js'
 
-const connectDB = async () => {
+const connectDb = async () => {
   logger.info('Connecting to MongoDB')
   await mongoose
     .connect(config.MONGODB_URI)
@@ -12,4 +12,4 @@ const connectDB = async () => {
     .catch((err) => logger.error(err))
 }
 
-export default connectDB
+export default connectDb
