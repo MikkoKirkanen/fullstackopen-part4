@@ -1,4 +1,5 @@
 import express from 'express'
+import middleware from '../utils/middleware.js'
 import Blog from '../models/blog.js'
 import User from '../models/user.js'
 
@@ -9,7 +10,7 @@ blogsRouter.get('/', async (req, res) => {
   res.json(blogs)
 })
 
-blogsRouter.post('/', async (req, res) => {
+blogsRouter.post('/', middleware.userExtractor, async (req, res) => {
   const body = req.body
 
   const user = await User.findById(req.user.id)
@@ -26,13 +27,13 @@ blogsRouter.post('/', async (req, res) => {
   res.status(201).json(savedBlog)
 })
 
-blogsRouter.put('/', async (req, res) => {
+blogsRouter.put('/', middleware.userExtractor, async (req, res) => {
   const blog = req.body
   await Blog.findByIdAndUpdate(blog.id, blog)
   res.status(200).json(blog)
 })
 
-blogsRouter.delete('/:id', async (req, res) => {
+blogsRouter.delete('/:id', middleware.userExtractor, async (req, res) => {
   const id = req.params.id
   const blog = await Blog.findById(id)
 
