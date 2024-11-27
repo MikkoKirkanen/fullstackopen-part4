@@ -2,8 +2,10 @@ import express from 'express'
 import 'express-async-errors'
 import cors from 'cors'
 import connectDb from './db/connection.js'
-import blogsRouter from './controllers/blogs.js'
 import middleware from './utils/middleware.js'
+import loginRouter from './controllers/login.js'
+import blogsRouter from './controllers/blogs.js'
+import usersRouter from './controllers/users.js'
 
 connectDb()
 
@@ -13,8 +15,11 @@ app.use(express.json())
 app.use(express.static('dist'))
 
 app.use(middleware.requestLogger)
+app.use(middleware.tokenExtractor)
 
-app.use('/api/blogs', blogsRouter)
+app.use('/api/login', loginRouter)
+app.use('/api/blogs', middleware.userExtractor, blogsRouter)
+app.use('/api/users', usersRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

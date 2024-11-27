@@ -2,9 +2,9 @@ import mongoose from 'mongoose'
 import config from '../utils/config.js'
 import logger from '../utils/logger.js'
 
-const connectDb = async () => {
+const connectDb = () => {
   logger.info('Connecting to MongoDB')
-  await mongoose
+  mongoose
     .connect(config.MONGODB_URI)
     .then(() => {
       logger.info('Connected to MongoDB')
